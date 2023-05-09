@@ -36,6 +36,7 @@ Route::group(['middleware' => ['auth', 'prevent_back_history']], function () {
     Route::post('/payment-report', [SaveDataController::class, 'paymentReport'])->name('payment-report');
     Route::post('/blockcard', [SaveDataController::class, 'blockCard'])->name('blockcard');
     Route::post('/un-blockcard', [SaveDataController::class, 'unBlockCard'])->name('un-blockcard');
+    Route::post('/deletecard', [SaveDataController::class, 'deleteCard'])->name('deletecard');
     //Route::get('delete-card/{id}', [SaveDataController::class, 'deleteCard'])->name('delete-card');
 
 

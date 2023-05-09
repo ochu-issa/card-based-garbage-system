@@ -9,11 +9,27 @@ class Card extends Model
 {
     use HasFactory;
     protected $guarded = [];
-    
+
     //has one
-    public function Resident()
+    // public function Resident()
+    // {
+    //     return $this->hasOne(Resident::class, 'card_id');
+    // }
+
+    public function resident()
     {
-        return $this->hasOne(Resident::class, 'card_id');
+        return $this->hasOne(Resident::class)->withDefault();
     }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($card) {
+            $card->resident()->delete();
+        });
+    }
+
+
 
 }

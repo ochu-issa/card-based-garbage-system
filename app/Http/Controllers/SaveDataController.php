@@ -93,7 +93,7 @@ class SaveDataController extends Controller
             if ($check_card->status == 0) { // check if card is blocked
                 return redirect()->back()->with('error', 'This card is blocked, fund can not be complete!');
             }
-            
+
             $add_fund = $check_card->balance + $request->amount;
             $check_card->update(['balance' => $add_fund]);
             DepositFund::create([
@@ -297,5 +297,14 @@ class SaveDataController extends Controller
                 'status' => 1,
             ]);
         return redirect()->back()->with('success', 'Card is now active!');
+    }
+
+    //delete card
+    public function deleteCard(Request $request)
+    {
+        $card_id = $request->card_id;
+        Card::find($card_id)->delete();
+        return redirect()->back()->with('success', 'Card and associated resident deleted successfully');
+
     }
 }

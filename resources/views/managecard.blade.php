@@ -86,8 +86,9 @@
                                                             data-target="#un-block-modal-{{ $card->id }}"><span
                                                                 class="fa fa-times"></span></button>
                                                     @endif
-                                                    <button class="btn btn-danger btn-sm" id="delete-btn"
-                                                        value="{{ $card->id }}"><span
+                                                    <button class="btn btn-danger btn-sm btn-animation"
+                                                    data-animation="pulse" data-toggle="modal"
+                                                    data-target="#delete-modal-{{ $card->id }}"><span
                                                             class="fa fa-trash"></span></button>
                                                 </td>
                                             </tr>
@@ -151,6 +152,42 @@
                                                                 <button type="button" class="btn btn-secondary"
                                                                     data-dismiss="modal">Close</button>
                                                                 <button type="submit" class="btn btn-danger">Yes! un-block
+                                                                    it</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {{-- end of modal --}}
+
+                                            <!-- Delete Modal -->
+                                            <div class="modal fade" id="delete-modal-{{ $card->id }}" role="document"
+                                                aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                                                <div class="modal-dialog " role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLongTitle-1">Delete the
+                                                                card
+                                                            </h5>
+                                                            <button type="button" class="close" data-dismiss="modal"
+                                                                aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <p>Are you sure you want to delete this card?
+                                                                <br> It will also delete the user own this card!
+                                                            </p>
+
+                                                        </div>
+                                                        <form action="{{route('deletecard')}}" method="post">
+                                                            @csrf
+                                                            <div class="modal-footer">
+                                                                <input type="hidden" value="{{ $card->id }}"
+                                                                    name="card_id">
+                                                                <button type="button" class="btn btn-secondary"
+                                                                    data-dismiss="modal">Close</button>
+                                                                <button type="submit" class="btn btn-danger">Yes! delete
                                                                     it</button>
                                                             </div>
                                                         </form>
