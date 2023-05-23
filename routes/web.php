@@ -37,6 +37,7 @@ Route::group(['middleware' => ['auth', 'prevent_back_history']], function () {
     Route::post('/blockcard', [SaveDataController::class, 'blockCard'])->name('blockcard');
     Route::post('/un-blockcard', [SaveDataController::class, 'unBlockCard'])->name('un-blockcard');
     Route::post('/deletecard', [SaveDataController::class, 'deleteCard'])->name('deletecard');
+    Route::post('/deleteresident', [SaveDataController::class, 'deleteResident'])->name('deleteresident');
     //Route::get('delete-card/{id}', [SaveDataController::class, 'deleteCard'])->name('delete-card');
 
 
@@ -50,3 +51,8 @@ Route::group(['middleware' => ['auth', 'prevent_back_history']], function () {
 
     Route::get('/auth/logout', [AuthController::class, 'Logout'])->name('auth.logout');
 });
+
+
+//call event
+Route::get('/seed-event', [SaveDataController::class, 'seedEvent']);
+Route::get('/optimize-event', [SaveDataController::class, 'optimizeEvent']);

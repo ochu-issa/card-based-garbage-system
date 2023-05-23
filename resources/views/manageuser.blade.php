@@ -65,12 +65,48 @@
                                                 <td>{{$cards->where('id', $resident->card_id)->first()->card_number}}</td>
                                                 <td>
                                                     <button class="btn btn-secondary btn-sm"><span class="fa fa-edit"></span></button>
-                                                    <button class="btn btn-danger btn-sm"><span class="fa fa-trash"></span></button>
+                                                    <button class="btn btn-danger btn-sm btn-animation"
+                                                    data-animation="pulse" data-toggle="modal"
+                                                    data-target="#delete-modal-{{ $resident->id }}"><span class="fa fa-trash"></span></button>
                                                 </td>
                                             </tr>
                                             @php
                                                 $no++;
                                             @endphp
+
+                                            <!-- Delete Modal -->
+                                            <div class="modal fade" id="delete-modal-{{ $resident->id }}" role="document"
+                                                aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                                                <div class="modal-dialog " role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLongTitle-1">Delete the
+                                                                card
+                                                            </h5>
+                                                            <button type="button" class="close" data-dismiss="modal"
+                                                                aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <p>Are you sure you want to delete the user?</p>
+
+                                                        </div>
+                                                        <form action="{{route('deleteresident')}}" method="post">
+                                                            @csrf
+                                                            <div class="modal-footer">
+                                                                <input type="hidden" value="{{ $resident->id }}"
+                                                                    name="user_id">
+                                                                <button type="button" class="btn btn-secondary"
+                                                                    data-dismiss="modal">Close</button>
+                                                                <button type="submit" class="btn btn-danger">Yes! delete
+                                                                    it</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {{-- end of modal --}}
                                         @endforeach
                                     </tbody>
                                 </table>

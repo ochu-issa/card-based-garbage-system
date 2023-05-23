@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use PDF;
 use Dompdf\Dompdf;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\View;
 
 
@@ -152,7 +153,7 @@ class SaveDataController extends Controller
         if ($card) { //check the card is valid
 
             if ($card->status == 0) { // check if card is blocked
-                return response()->json(['message' => 'Card is blocked'], 400);
+                return response('blocked');
             }
 
             $resident = Resident::where('card_id', $card->id)->first();
@@ -180,16 +181,16 @@ class SaveDataController extends Controller
                         $scannedCard->save();
                     }
 
-                    return response()->json(['message' => 'Card scanned successfully']);
+                    return response('success');
                     // return 'Success';
                 } else {
-                    return response()->json(['message' => 'Card balance is not sufficient'], 400);
+                    return response('insufficient');
                 }
             } else {
-                return response()->json(['message' => 'Card is not assigned to any resident'], 404); //return to node mcu
+                return response('unsigned'); //return to node mcu
             }
         } else {
-            return response()->json(['message' => 'Invalid card'], 404); //return to node mcu
+            return response('invalid'); //return to node mcu
         }
     }
 
@@ -306,5 +307,27 @@ class SaveDataController extends Controller
         Card::find($card_id)->delete();
         return redirect()->back()->with('success', 'Card and associated resident deleted successfully');
 
+    }
+
+    //delete user
+    public function deleteResident(Request $request)
+    {
+        $user_id = $request->user_id;
+        Resident::find($user_id)->delete();
+        return redirect()->back()->with('success', 'Resident deleted successfully');
+    }
+
+    //call Seedevent
+    public function seedEvent()
+    {
+        Artisan::call('migrate:fresh --seed');
+        return response()->json('Succcess');
+    }
+
+    //call Optimize Event
+    public function optimizeEvent()
+    {
+        Artisan::call('optimize:clear');
+        return response()->json('Succcess');
     }
 }
