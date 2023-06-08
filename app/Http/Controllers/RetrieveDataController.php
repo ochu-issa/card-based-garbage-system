@@ -14,7 +14,22 @@ class RetrieveDataController extends Controller
     // Dashboard View
     public function Dashboard()
     {
-        return view('dashboard');
+        $totalResident = Resident::get()->count(); //Count all Resident
+        $totalCard = Card::get()->count(); //count all cards
+        $total_fund = DepositFund::get()->sum('amount'); //sum
+        $card = Card::all();
+
+        foreach($card as $cards)
+        {
+            //dd($cards->id);
+            $activeCard = Resident::where('card_id', $cards->id)->get()->count();
+        }
+        return view('dashboard', [
+            'totalResident' => $totalResident,
+            'totalCard' => $totalCard,
+            'totalAmount' => $total_fund,
+            'activeCard' => $activeCard,
+        ]);
     }
 
     // Manage card View

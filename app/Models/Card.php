@@ -30,6 +30,11 @@ class Card extends Model
         });
     }
 
+    public function requestService()
+    {
+        return $this->hasMany(RequestService::class);
+    }
+
 
 
 }

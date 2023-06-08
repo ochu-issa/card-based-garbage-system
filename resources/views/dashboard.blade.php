@@ -40,8 +40,8 @@
                                     <div class="dynamicbar">Loading..</div>
                                 </div>
                                 <div class="col-4">
-                                    <h2 class="m-0 counter">145</h2>
-                                    <p>Total Users</p>
+                                    <h2 class="m-0 counter">{{$totalResident}}</h2>
+                                    <p>Total Residents</p>
                                 </div>
                             </div>
                         </div>
@@ -56,7 +56,7 @@
                                     <div class="inlinesparkline">Loading..</div>
                                 </div>
                                 <div class="col-4">
-                                    <h2 class="m-0 counter">946</h2>
+                                    <h2 class="m-0 counter">{{$totalCard}}</h2>
                                     <p>Total Cards</p>
                                 </div>
                             </div>
@@ -72,8 +72,8 @@
                                     <div class="dynamicbar">Loading..</div>
                                 </div>
                                 <div class="col-4">
-                                    <h2 class="m-0 counter">548</h2>
-                                    <p>Total Request</p>
+                                    <h2 class="m-0 counter">{{$activeCard}}</h2>
+                                    <p>Active Cards</p>
                                 </div>
                             </div>
                         </div>
@@ -88,8 +88,8 @@
                                     <div class="inlinesparkline">Loading..</div>
                                 </div>
                                 <div class="col-4">
-                                    <h2 class="m-0 counter">999</h2>
-                                    <p>Balance</p>
+                                    <h2 class="m-0 counter">{{number_format($totalAmount)}}</h2>
+                                    <p>Money Deposited</p>
                                 </div>
                             </div>
                         </div>

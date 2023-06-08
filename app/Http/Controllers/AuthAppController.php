@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Models\Card;
 use App\Models\User;
@@ -39,57 +40,35 @@ class AuthAppController extends Controller
     }
 
     //sending Login user data
-    public function LoginUser(Request $request)
+    public function LoginUser(LoginRequest $request)
     {
-        $validate = validator::make($request->all(), [
-            'email' => 'required',
-            'password' => 'required',
+
+        $request->validated($request->all());
+
+        if(!Auth::attempt(['email' => $request->email, 'password' => $request->password]))
+        {
+            return $this->error('', 'Invalid Crediantials', 401);
+        }
+
+        $user = User::whereemail($request->email)->first();
+        $token = $user->createToken('Api Token for'. $user->f_name)->plainTextToken;
+
+        return $this->success([
+            'user' => $user,
+            'token' => $token,
         ]);
-
-        if ($validate->fails()) {
-            return response([
-                'message' => 'All fields are required!',
-            ], 203);
-        }
-
-        $check_user = User::where('email', $request->email)->first();
-        if (!$check_user || !Hash::check($request->password,  $check_user->password)) {
-            return response([
-                'message' => 'Invalid Credential',
-            ], 202);
-        }
-
-        $token = $check_user->createToken('garbageApp')->plainTextToken;
-        return response([
-            'user' => $check_user,
-            'token' => $token
-        ], 200);
     }
 
-    //check if number is exist?
-    public function linkCard(Request $request)
+    //logout function
+    public function LogoutUser()
     {
-        $validate = Validator::make($request->all(), [
-            'card_number' => 'required'
+        Auth::user()->currentAccessToken()->delete();
+        return $this->success([
+            'message' => 'You have successfully logout.'
         ]);
-
-        if ($validate->fails()) {
-            return response()->json([
-                'error' => 'The card Number field is required',
-            ], 400);
-        }
-
-        $card_number = $request->card_number;
-        $card = Card::where('card_number', $card_number)->first();
-
-        if ($card) {
-            return response()->json([
-                'card' => $card,
-            ], 200);
-        } else {
-            return response()->json([
-                'error' => 'Card number does not exist in our database',
-            ], 404);
-        }
     }
+
+    //
+
+    
 }
