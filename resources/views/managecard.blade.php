@@ -24,6 +24,21 @@
                 });
             </script>
         @endif
+        @if ($errors->any())
+            <script>
+                $(document).ready(function() {
+                    @foreach ($errors->all() as $error)
+                        $.Notification.autoHideNotify(
+                            'error',
+                            'top right',
+                            'Error',
+                            '{{ $error }}'
+                        );
+                    @endforeach
+                });
+            </script>
+        @endif
+
         <div class="page-head">
             <h4 class="mt-2 mb-2">Manage cards</h4>
         </div>
@@ -87,8 +102,8 @@
                                                                 class="fa fa-times"></span></button>
                                                     @endif
                                                     <button class="btn btn-danger btn-sm btn-animation"
-                                                    data-animation="pulse" data-toggle="modal"
-                                                    data-target="#delete-modal-{{ $card->id }}"><span
+                                                        data-animation="pulse" data-toggle="modal"
+                                                        data-target="#delete-modal-{{ $card->id }}"><span
                                                             class="fa fa-trash"></span></button>
                                                 </td>
                                             </tr>
@@ -132,7 +147,8 @@
                                                 <div class="modal-dialog " role="document">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h5 class="modal-title" id="exampleModalLongTitle-1">Un-Block the
+                                                            <h5 class="modal-title" id="exampleModalLongTitle-1">Un-Block
+                                                                the
                                                                 card
                                                             </h5>
                                                             <button type="button" class="close" data-dismiss="modal"
@@ -151,7 +167,8 @@
                                                                     name="card_id">
                                                                 <button type="button" class="btn btn-secondary"
                                                                     data-dismiss="modal">Close</button>
-                                                                <button type="submit" class="btn btn-danger">Yes! un-block
+                                                                <button type="submit" class="btn btn-danger">Yes!
+                                                                    un-block
                                                                     it</button>
                                                             </div>
                                                         </form>
@@ -161,12 +178,14 @@
                                             {{-- end of modal --}}
 
                                             <!-- Delete Modal -->
-                                            <div class="modal fade" id="delete-modal-{{ $card->id }}" role="document"
-                                                aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                                            <div class="modal fade" id="delete-modal-{{ $card->id }}"
+                                                role="document" aria-labelledby="exampleModalLongTitle"
+                                                aria-hidden="true">
                                                 <div class="modal-dialog " role="document">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h5 class="modal-title" id="exampleModalLongTitle-1">Delete the
+                                                            <h5 class="modal-title" id="exampleModalLongTitle-1">Delete
+                                                                the
                                                                 card
                                                             </h5>
                                                             <button type="button" class="close" data-dismiss="modal"
@@ -180,7 +199,7 @@
                                                             </p>
 
                                                         </div>
-                                                        <form action="{{route('deletecard')}}" method="post">
+                                                        <form action="{{ route('deletecard') }}" method="post">
                                                             @csrf
                                                             <div class="modal-footer">
                                                                 <input type="hidden" value="{{ $card->id }}"

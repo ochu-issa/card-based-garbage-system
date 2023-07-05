@@ -27,7 +27,7 @@
     <link href="assets/css/animate.css" rel="stylesheet">
 
     <!-- Theme icon -->
-    <link rel="shortcut icon" href="assets/images/favicon.ico">
+    <link rel="shortcut icon" href="logo.png">
 
     <link href="assets/plugins/morris-chart/morris.css" rel="stylesheet">
     <!-- Theme Css -->

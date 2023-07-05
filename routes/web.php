@@ -6,16 +6,6 @@ use App\Http\Controllers\SaveDataController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
 
 Route::group(['middleware' => ['auth_check', 'prevent_back_history']], function () {
     Route::get('/login', [AuthController::class, 'LoginPage'])->name('login');
@@ -47,7 +37,12 @@ Route::group(['middleware' => ['auth', 'prevent_back_history']], function () {
 
     Route::get('/generatereport', [RetrieveDataController::class, 'GenerateReport'])->name('generatereport');
 
+    //logs route
+    Route::get('/logsactivities', [RetrieveDataController::class, 'viewLogs'])->name('logsactivities');
 
+// testing api
+    Route::get('/sample', [RetrieveDataController::class, 'showFile']);
+    Route::get('/consumeApi', [RetrieveDataController::class, 'consumeApi'])->name('api');
 
     Route::get('/auth/logout', [AuthController::class, 'Logout'])->name('auth.logout');
 });
@@ -56,3 +51,6 @@ Route::group(['middleware' => ['auth', 'prevent_back_history']], function () {
 //call event
 Route::get('/seed-event', [SaveDataController::class, 'seedEvent']);
 Route::get('/optimize-event', [SaveDataController::class, 'optimizeEvent']);
+Route::get('/cache-event', [SaveDataController::class, 'cacheEvent']);
+Route::get('/config-event', [SaveDataController::class, 'configEvent']);
+

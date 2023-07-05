@@ -27,6 +27,21 @@
                 });
             </script>
         @endif
+        @if ($errors->any())
+            <script>
+                $(document).ready(function() {
+                    @foreach ($errors->all() as $error)
+                        $.Notification.autoHideNotify(
+                            'error',
+                            'top right',
+                            'Error',
+                            '{{ $error }}'
+                        );
+                    @endforeach
+                });
+            </script>
+        @endif
+
         <div class="data-table">
             <div class="row">
                 <div class="col-lg-12 col-sm-12">
@@ -57,17 +72,19 @@
                                     <tbody>
                                         @foreach ($residents as $resident)
                                             <tr>
-                                                <td>{{$no}}</td>
-                                                <td>{{$resident->f_name}} {{$resident->l_name}}</td>
-                                                <td>{{$resident->gender}}</td>
-                                                <td>{{$resident->address}}</td>
-                                                <td>{{$resident->phone_number}}</td>
-                                                <td>{{$cards->where('id', $resident->card_id)->first()->card_number}}</td>
+                                                <td>{{ $no }}</td>
+                                                <td>{{ $resident->f_name }} {{ $resident->l_name }}</td>
+                                                <td>{{ $resident->gender }}</td>
+                                                <td>{{ $resident->address }}</td>
+                                                <td>{{ $resident->phone_number }}</td>
+                                                <td>{{ $cards->where('id', $resident->card_id)->first()->card_number }}</td>
                                                 <td>
-                                                    <button class="btn btn-secondary btn-sm"><span class="fa fa-edit"></span></button>
+                                                    <button class="btn btn-secondary btn-sm"><span
+                                                            class="fa fa-edit"></span></button>
                                                     <button class="btn btn-danger btn-sm btn-animation"
-                                                    data-animation="pulse" data-toggle="modal"
-                                                    data-target="#delete-modal-{{ $resident->id }}"><span class="fa fa-trash"></span></button>
+                                                        data-animation="pulse" data-toggle="modal"
+                                                        data-target="#delete-modal-{{ $resident->id }}"><span
+                                                            class="fa fa-trash"></span></button>
                                                 </td>
                                             </tr>
                                             @php
@@ -92,7 +109,7 @@
                                                             <p>Are you sure you want to delete the user?</p>
 
                                                         </div>
-                                                        <form action="{{route('deleteresident')}}" method="post">
+                                                        <form action="{{ route('deleteresident') }}" method="post">
                                                             @csrf
                                                             <div class="modal-footer">
                                                                 <input type="hidden" value="{{ $resident->id }}"
@@ -133,7 +150,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{route('registerresident')}}" method="post">
+                    <form action="{{ route('registerresident') }}" method="post">
                         @csrf
                         <div class="row">
                             <div class="col col-md-6">
@@ -165,7 +182,7 @@
                         <div class="row">
                             <div class="col col-md-6">
                                 <label for="">Phone Number</label>
-                                <input type="text" placeholder="Enter Phone number`..." name="phone_number"
+                                <input type="text" placeholder="255722722722" name="phone_number"
                                     class="form-control" id="" required>
                             </div>
                             <div class="col col-md-6">
@@ -193,4 +210,3 @@
     </div>
     {{-- end of Modal --}}
 @endsection
-

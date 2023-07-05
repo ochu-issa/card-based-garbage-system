@@ -17,6 +17,18 @@
             max-width: 960px;
             padding: 20px;
         }
+        .badge-success {
+            background-color: #28a745;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 20px;
+        }
+        .badge-warning {
+            background-color: #dbbe05;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 20px;
+        }
 
         h1 {
             text-align: center;
@@ -57,7 +69,7 @@
 <body>
     <div class="container-fluid">
         <h1>Scanned Card Report</h1>
-        <h3>Date Range: {{$DateRange}}</h3>
+        <h3>Date Range: {{ $DateRange }}</h3>
         <table>
             <thead>
                 <tr>
@@ -67,6 +79,7 @@
                     <th>Address</th>
                     <th>Phone Number</th>
                     <th>Scanned times</th>
+                    <th>Status</th>
                 </tr>
             </thead>
             <tbody>
@@ -78,6 +91,11 @@
                         <td>{{ $card->address }}</td>
                         <td>{{ $card->phone_number }}</td>
                         <td>{{ $card->scanned_times }}</td>
+                        @if ($card->scanned_times < 3)
+                            <td><span class="badge-warning">Bad Collector</span></td>
+                        @else
+                            <td><span class="badge-success">Good Collector</span></td>
+                        @endif
                     </tr>
                 @endforeach
             </tbody>

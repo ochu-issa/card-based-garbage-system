@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Storage;
 use Monolog\Handler\NullHandler;
 use Monolog\Handler\StreamHandler;
 use Monolog\Handler\SyslogUdpHandler;
@@ -126,6 +127,12 @@ return [
         'emergency' => [
             'path' => storage_path('logs/laravel.log'),
         ],
+
+        'cardActivities' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/cardActivities.log'),
+            'level' => 'debug',
+        ]
     ],
 
 ];

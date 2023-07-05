@@ -140,16 +140,16 @@
                                 <option value="" selected disabled>--</option>
                                 <option value="This Week">This Week</option>
                                 <option value="This Month">This Month</option>
-                                <option value="Last Month">Last Month</option>
-                                <option value="Last Two Month">Last Two Month</option>
-                                <option value="Last Three Month">Last Three Month</option>
+                                <option value="Last Month">Last Months</option>
+                                <option value="Last Two Months">Last Two Months</option>
+                                <option value="Last Three Months">Last Three Months</option>
                             </select>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Register</button>
+                    <button type="submit" class="btn btn-primary" >Generate</button>
                 </div>
             </form>
             </div>

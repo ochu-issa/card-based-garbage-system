@@ -3,11 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\Card;
+use App\Models\CardActivities;
 use App\Models\DepositFund;
 use App\Models\Resident;
 use App\Models\ScannedCard;
 use Illuminate\Http\Request;
+use Illuminate\Log\LogManager;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
+use Monolog\Handler\StreamHandler as HandlerStreamHandler;
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
+
 
 class RetrieveDataController extends Controller
 {
@@ -19,8 +27,7 @@ class RetrieveDataController extends Controller
         $total_fund = DepositFund::get()->sum('amount'); //sum
         $card = Card::all();
 
-        foreach($card as $cards)
-        {
+        foreach ($card as $cards) {
             //dd($cards->id);
             $activeCard = Resident::where('card_id', $cards->id)->get()->count();
         }
@@ -59,8 +66,7 @@ class RetrieveDataController extends Controller
     public function GenerateReport()
     {
         $scanned = ScannedCard::orderByDesc('id')->get();
-        $no = 1;
-        return view('generatereport', ['scannedCard' => $scanned, 'no' => $no]);
+        return view('generatereport', ['scannedCard' => $scanned]);
     }
 
     //deposit fund
@@ -70,5 +76,30 @@ class RetrieveDataController extends Controller
         $no = 1;
         $total_fund = DepositFund::get()->sum('amount');
         return view('depositfund', ['deposits' => $deposit, 'no' => $no, 'total' => $total_fund]);
+    }
+
+    //log activites
+    public function viewLogs()
+    {
+        $logs = CardActivities::latest()->get();
+        return view('logActivities', ['logs' => $logs]);
+    }
+
+    public function showFile()
+    {
+        return view('sample');
+    }
+
+    public function consumeApi(Request $request)
+    {
+        $card_number = $request->card_number;
+        $api = app('App\Http\Controllers\SaveDataController')->ScanCard($card_number);
+        if($api->getStatusCode() === 200)
+        {
+            return back()->with('success', 'api success');
+
+        }else{
+            return back()->with('error', 'api error');
+        }
     }
 }

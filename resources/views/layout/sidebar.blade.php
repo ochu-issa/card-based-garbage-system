@@ -4,7 +4,7 @@
 
         <div class="user-box">
             <div class="d-flex justify-content-center">
-                <img src="assets/images/users/avatar-1.jpg" alt="" class="img-fluid rounded-circle">
+                <img src={{asset("profile.png")}} alt="" class="img-fluid rounded-circle">
             </div>
             <div class="text-center text-white mt-2">
                 <h6>{{Auth::user()->f_name}} {{Auth::user()->l_name}}</h6>
@@ -32,9 +32,12 @@
             <li class="nav-menu"><a href="{{ route('generatereport') }}">
                     <i class="fa fa-file"></i> <span>Generate Report</span></a>
             </li>
-            <li class="nav-menu"><a href="#">
+            {{-- <li class="nav-menu"><a href="#">
                     <i class="fa fa-paper-plane"></i> <span>View Request</span></a>
-            </li>
+            </li> --}}
+            <li class="nav-menu"><a href="{{route('logsactivities')}}">
+                <i class="fa fa-history"></i> <span>Log</span></a>
+        </li>
         </ul>
         <!--sidebar nav end-->
     </div>

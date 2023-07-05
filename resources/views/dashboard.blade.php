@@ -30,7 +30,7 @@
         <div class="row">
             <div class="col-lg-12 col-sm-12">
                 <div class="row">
-                    <div class="col-lg-3 col-sm-3">
+                    <div class="col-lg-4 col-sm-4">
                         <div class="widget-box bg-white m-b-30">
                             <div class="row d-flex align-items-center">
                                 <div class="col-4">
@@ -46,7 +46,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-sm-3">
+                    <div class="col-lg-4 col-sm-4">
                         <div class="widget-box bg-white m-b-30">
                             <div class="row d-flex align-items-center text-center">
                                 <div class="col-4">
@@ -62,23 +62,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-sm-3">
-                        <div class="widget-box bg-white m-b-30">
-                            <div class="row d-flex align-items-center">
-                                <div class="col-4">
-                                    <div class="text-center"><i class="ti ti-money"></i></div>
-                                </div>
-                                <div class="col-4">
-                                    <div class="dynamicbar">Loading..</div>
-                                </div>
-                                <div class="col-4">
-                                    <h2 class="m-0 counter">{{$activeCard}}</h2>
-                                    <p>Active Cards</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-3">
+                    <div class="col-lg-4 col-sm-4">
                         <div class="widget-box bg-white m-b-30">
                             <div class="row d-flex align-items-center">
                                 <div class="col-4">

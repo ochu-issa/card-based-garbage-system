@@ -1,5 +1,5 @@
 <!--footer section start-->
 <footer class="footer">
-    2018 &copy; Syntra.
+    2023 &copy; Card Based Garbage Collection System.
 </footer>
 <!--footer section end-->
