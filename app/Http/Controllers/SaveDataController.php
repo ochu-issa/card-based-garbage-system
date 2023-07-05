@@ -368,14 +368,14 @@ class SaveDataController extends Controller
             $scannedCards = ScannedCard::whereBetween('created_at', $this->getDateRange($when))->get();
         } elseif ($filter == 'Good Collector') {
             // Retrieve the scanned cards based on the selected time range and scanned_times greater than 3
-            $scannedCards = ScannedCard::where('scanned_times', '>', 3)->whereBetween('created_at', $this->getDateRange($when))->get();
+            $scannedCards = ScannedCard::where('scanned_times', '>=', 3)->whereBetween('created_at', $this->getDateRange($when))->get();
         } elseif ($filter == 'Bad Collector') {
             // Retrieve the scanned cards based on the selected time range and scanned_times less than 3
-            $scannedCards = ScannedCard::where('scanned_times', '<', 3)->whereBetween('created_at', $this->getDateRange($when))->get();
+            $scannedCards = ScannedCard::where('scanned_times', '<=', 2)->whereBetween('created_at', $this->getDateRange($when))->get();
         }
 
         // Generate the HTML for the report using a Blade view
-        $html = View::make('report', ['scannedCards' => $scannedCards, 'DateRange' => $when])->render();
+        $html = View::make('report', ['scannedCards' => $scannedCards, 'DateRange' => $when, 'filter' => $filter])->render();
 
         // Create a new instance of the DOMPDF class
         $dompdf = new Dompdf();
@@ -392,6 +392,7 @@ class SaveDataController extends Controller
         // Output the generated PDF to the browser
         return $dompdf->stream('report.pdf');
     }
+
 
     //get range function
     function getDateRange($when)

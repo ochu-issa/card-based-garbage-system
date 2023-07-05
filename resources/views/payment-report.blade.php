@@ -35,8 +35,9 @@
 </head>
 <body>
     <div class="container-fluid">
-        <h1>Card Payment Report</h1>
+        <h1>Card Based Garbage Collection System <br> Card Payments Report</h1>
         <h3>Date Range: {{$DateRange}}</h3>
+        <br>
         <table class="table table-bordered">
             <thead>
                 <tr>
