@@ -26,7 +26,7 @@ class RetrieveDataController extends Controller
         $totalCard = Card::get()->count(); //count all cards
         $total_fund = DepositFund::get()->sum('amount'); //sum
         $card = Card::all();
-
+        $activeCard = 0;
         foreach ($card as $cards) {
             //dd($cards->id);
             $activeCard = Resident::where('card_id', $cards->id)->get()->count();
